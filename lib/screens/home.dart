@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:shopping_app/widgets/app_widgets.dart';
 
 class Home extends StatefulWidget {
@@ -132,7 +133,54 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ],
-            )
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "All products",
+                  style: AppWidgets.semiBoldTextStyle(),
+                ),
+                const Text(
+                  "see all",
+                  style: TextStyle(
+                    color: Color(0xFFfd6f3e),
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Container(
+              height: 240,
+              child: ListView(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                children: [
+                  AllProductsContainer(
+                    imageName: "headphone2.png",
+                    productName: "Headphone",
+                    price: 1000,
+                  ),
+                  AllProductsContainer(
+                    imageName: "laptop.png",
+                    productName: "Laptop",
+                    price: 50000,
+                  ),
+                  AllProductsContainer(
+                    imageName: "watch2.png",
+                    productName: "Watch",
+                    price: 500,
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -163,6 +211,73 @@ class CategoryTile extends StatelessWidget {
             fit: BoxFit.cover,
           ),
           const Icon(Icons.arrow_right_alt),
+        ],
+      ),
+    );
+  }
+}
+
+class AllProductsContainer extends StatelessWidget {
+  AllProductsContainer({
+    super.key,
+    required this.imageName,
+    required this.productName,
+    required this.price,
+  });
+
+  String imageName;
+  String productName;
+  int price;
+
+  @override
+  Widget build(BuildContext context) {
+    return // Headphone
+        Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      margin: const EdgeInsets.only(right: 20.0),
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(10.0)),
+      child: Column(
+        children: [
+          Image.asset(
+            "assets/images/$imageName",
+            height: 150,
+            width: 150,
+            fit: BoxFit.cover,
+          ),
+          Text(
+            productName,
+            style: AppWidgets.semiBoldTextStyle(),
+          ),
+          const SizedBox(
+            height: 10.0,
+          ),
+          Row(
+            children: [
+              Text(
+                "\u20B9$price",
+                style: const TextStyle(
+                  color: Color(0xFFfd6f3e),
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(
+                width: 40.0,
+              ),
+              Container(
+                padding: const EdgeInsets.all(5.0),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFfd6f3e),
+                  borderRadius: BorderRadius.circular(7.0),
+                ),
+                child: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );
