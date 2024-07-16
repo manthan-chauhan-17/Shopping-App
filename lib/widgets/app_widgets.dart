@@ -16,4 +16,12 @@ class AppWidgets {
       fontWeight: FontWeight.w500,
     );
   }
+
+  static TextStyle semiBoldTextStyle() {
+    return const TextStyle(
+      color: Colors.black,
+      fontSize: 20.0,
+      fontWeight: FontWeight.bold,
+    );
+  }
 }
