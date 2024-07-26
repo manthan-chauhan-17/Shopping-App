@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:random_string/random_string.dart';
 import 'package:shopping_app/screens/bottomnav.dart';
 import 'package:shopping_app/screens/login.dart';
+import 'package:shopping_app/services/database.dart';
 import 'package:shopping_app/widgets/app_widgets.dart';
 
 class Signup extends StatefulWidget {
@@ -36,6 +37,14 @@ class _SignupState extends State<Signup> {
           ),
         ));
 
+        String id = randomAlphaNumeric(10);
+        Map<String, dynamic> userInfoMap = {
+          "Name": nameController.text,
+          "Email": emailController.text,
+          "Id": id,
+          "Image": "assets/images/demo-user.jpg",
+        };
+        await DatabaseMethods().addUserDetail(userInfoMap, id);
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => BottomNav()));
         // Catch Block
