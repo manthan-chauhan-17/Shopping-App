@@ -4,6 +4,7 @@ import 'package:random_string/random_string.dart';
 import 'package:shopping_app/screens/bottomnav.dart';
 import 'package:shopping_app/screens/login.dart';
 import 'package:shopping_app/services/database.dart';
+import 'package:shopping_app/services/shared_pref.dart';
 import 'package:shopping_app/widgets/app_widgets.dart';
 
 class Signup extends StatefulWidget {
@@ -16,9 +17,9 @@ class Signup extends StatefulWidget {
 class _SignupState extends State<Signup> {
   String? name, email, password;
 
-  TextEditingController nameController = new TextEditingController();
-  TextEditingController emailController = new TextEditingController();
-  TextEditingController passwordController = new TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -38,6 +39,12 @@ class _SignupState extends State<Signup> {
         ));
 
         String id = randomAlphaNumeric(10);
+        // Saving using Shared Preference
+        await SharedPreferenceHelper().saveUserId(id);
+        await SharedPreferenceHelper().saveUserName(nameController.text);
+        await SharedPreferenceHelper().saveUserEmail(emailController.text);
+        await SharedPreferenceHelper()
+            .saveUserImage("assets/images/demo-user.jpg");
         Map<String, dynamic> userInfoMap = {
           "Name": nameController.text,
           "Email": emailController.text,
@@ -45,8 +52,8 @@ class _SignupState extends State<Signup> {
           "Image": "assets/images/demo-user.jpg",
         };
         await DatabaseMethods().addUserDetail(userInfoMap, id);
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => BottomNav()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const BottomNav()));
         // Catch Block
       } on FirebaseException catch (e) {
         if (e.code == 'weak-password') {
