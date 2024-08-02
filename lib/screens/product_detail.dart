@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:shopping_app/widgets/app_widgets.dart';
 
 class ProductDetail extends StatefulWidget {
-  const ProductDetail({super.key});
+  ProductDetail(
+      {super.key,
+      required this.image,
+      required this.name,
+      required this.detail,
+      required this.price});
+
+  String image, name, detail, price;
 
   @override
   State<ProductDetail> createState() => _ProductDetailState();
@@ -37,8 +44,8 @@ class _ProductDetailState extends State<ProductDetail> {
                 ),
                 // Product Image
                 Center(
-                  child: Image.asset(
-                    "assets/images/headphone2.png",
+                  child: Image.network(
+                    widget.image,
                     height: 400,
                   ),
                 ),
@@ -64,12 +71,12 @@ class _ProductDetailState extends State<ProductDetail> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Headphone",
+                          widget.name,
                           style: AppWidgets.boldWeightTextStyle(),
                         ),
-                        const Text(
-                          "\u20B91000",
-                          style: TextStyle(
+                        Text(
+                          "\u20B9" + widget.price,
+                          style: const TextStyle(
                             color: Color(0xFFfd6f3e),
                             fontSize: 23.0,
                             fontWeight: FontWeight.bold,
@@ -87,8 +94,8 @@ class _ProductDetailState extends State<ProductDetail> {
                     const SizedBox(
                       height: 10.0,
                     ),
-                    const Text(
-                      "Experience immersive sound with our premium wireless headphones. Featuring noise-cancellation technology and up to 20 hours of battery life, these headphones are perfect for both work and play. Enjoy crystal-clear audio and unparalleled comfort, wherever you go.",
+                    Text(
+                      widget.detail,
                     ),
                     const SizedBox(
                       height: 30.0,

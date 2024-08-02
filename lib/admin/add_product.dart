@@ -61,7 +61,7 @@ class _AddProductState extends State<AddProduct> {
   }
 
   String? value;
-  final List<String> categoryItem = ['Watch', 'Laptop', 'TV', 'Headphone'];
+  final List<String> categoryItem = ['Headphone', 'Laptop', 'TV', 'Watch'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
