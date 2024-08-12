@@ -22,7 +22,9 @@ class _BottomNavState extends State<BottomNav> {
   @override
   void initState() {
     homePage = const Home();
-    order = const Order();
+    order = Order(
+      category: "Watch",
+    );
     profile = const Profile();
 
     pages = [homePage, order, profile];

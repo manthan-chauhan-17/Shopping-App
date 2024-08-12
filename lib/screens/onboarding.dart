@@ -17,7 +17,7 @@ class _OnboardingState extends State<Onboarding> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset("assets/images/headphone.PNG"),
+            Image.asset("assets/images/headphone_icon.png"),
             const Padding(
               padding: EdgeInsets.only(left: 20.0),
               child: Text(

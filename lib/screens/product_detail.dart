@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:shopping_app/widgets/app_widgets.dart';
 
 class ProductDetail extends StatefulWidget {
-  ProductDetail(
-      {super.key,
-      required this.image,
-      required this.name,
-      required this.detail,
-      required this.price});
+  ProductDetail({
+    super.key,
+    required this.image,
+    required this.name,
+    required this.detail,
+    required this.price,
+  });
 
   String image, name, detail, price;
 
