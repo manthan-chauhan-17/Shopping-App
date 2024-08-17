@@ -1,6 +1,9 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shopping_app/screens/category_products.dart';
+import 'package:shopping_app/screens/product_detail.dart';
 import 'package:shopping_app/services/shared_pref.dart';
 import 'package:shopping_app/widgets/app_widgets.dart';
 
@@ -64,7 +67,7 @@ class _HomeState extends State<Home> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Hey," + name!,
+                            "Hey,${name!}",
                             style: AppWidgets.boldWeightTextStyle(),
                           ),
                           Text(
@@ -199,16 +202,22 @@ class _HomeState extends State<Home> {
                         AllProductsContainer(
                           imageName: "headphone2.png",
                           productName: "Headphone",
+                          detail:
+                              "Experience immersive sound with our wireless over-ear headphones, featuring noise-cancellation, deep bass, and a 30-hour battery life for uninterrupted listening.",
                           price: 1000,
                         ),
                         AllProductsContainer(
                           imageName: "laptop.png",
                           productName: "Laptop",
+                          detail:
+                              "Power through tasks with our sleek 14-inch laptop, equipped with an Intel i7 processor, 16GB RAM, and a 512GB SSD, ensuring top-tier performance and portability.",
                           price: 50000,
                         ),
                         AllProductsContainer(
                           imageName: "watch2.png",
                           productName: "Watch",
+                          detail:
+                              "Stay connected and stylish with our smartwatch, offering fitness tracking, heart rate monitoring, and customizable watch faces, all in a water-resistant design.",
                           price: 500,
                         ),
                       ],
@@ -221,6 +230,7 @@ class _HomeState extends State<Home> {
   }
 }
 
+// ignore: must_be_immutable
 class CategoryTile extends StatelessWidget {
   CategoryTile({super.key, required this.image, required this.categoryName});
 
@@ -260,16 +270,19 @@ class CategoryTile extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class AllProductsContainer extends StatelessWidget {
   AllProductsContainer({
     super.key,
     required this.imageName,
     required this.productName,
+    required this.detail,
     required this.price,
   });
 
   String imageName;
   String productName;
+  String detail;
   int price;
 
   @override
@@ -308,15 +321,29 @@ class AllProductsContainer extends StatelessWidget {
               const SizedBox(
                 width: 40.0,
               ),
-              Container(
-                padding: const EdgeInsets.all(5.0),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFfd6f3e),
-                  borderRadius: BorderRadius.circular(7.0),
-                ),
-                child: const Icon(
-                  Icons.add,
-                  color: Colors.white,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProductDetail(
+                          image: imageName,
+                          name: productName,
+                          detail: detail,
+                          price: price.toString()),
+                    ),
+                  );
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(5.0),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFfd6f3e),
+                    borderRadius: BorderRadius.circular(7.0),
+                  ),
+                  child: const Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ],

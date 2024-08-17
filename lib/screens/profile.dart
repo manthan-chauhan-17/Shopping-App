@@ -57,7 +57,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xfff2f2f2),
+        backgroundColor: const Color(0xfff2f2f2),
         title: Text(
           "Profile",
           style: AppWidgets.boldWeightTextStyle(),
@@ -68,6 +68,7 @@ class _ProfileState extends State<Profile> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
+          // ignore: avoid_unnecessary_containers
           : Container(
               child: Column(
                 children: [
@@ -202,6 +203,7 @@ class _ProfileState extends State<Profile> {
                     onTap: () async {
                       await AuthMethods().logOut().then(
                             (value) => Navigator.pushReplacement(
+                              // ignore: use_build_context_synchronously
                               context,
                               MaterialPageRoute(
                                   builder: (context) => const Onboarding()),
@@ -249,6 +251,7 @@ class _ProfileState extends State<Profile> {
                     onTap: () async {
                       await AuthMethods().deleteUser().then(
                             (value) => Navigator.pushReplacement(
+                              // ignore: use_build_context_synchronously
                               context,
                               MaterialPageRoute(
                                   builder: (context) => const Onboarding()),

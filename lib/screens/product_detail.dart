@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/widgets/app_widgets.dart';
 
+// ignore: must_be_immutable
 class ProductDetail extends StatefulWidget {
   ProductDetail({
     super.key,
@@ -76,7 +77,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           style: AppWidgets.boldWeightTextStyle(),
                         ),
                         Text(
-                          "\u20B9" + widget.price,
+                          "\u20B9${widget.price}",
                           style: const TextStyle(
                             color: Color(0xFFfd6f3e),
                             fontSize: 23.0,

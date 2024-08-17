@@ -133,6 +133,7 @@ class _AdminLoginState extends State<AdminLogin> {
 
   loginAdmin() {
     FirebaseFirestore.instance.collection("Admin").get().then((snapshot) {
+      // ignore: avoid_function_literals_in_foreach_calls
       snapshot.docs.forEach((result) {
         if (result.data()['username'] != userNameController.text.trim()) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

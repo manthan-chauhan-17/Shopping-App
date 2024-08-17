@@ -7,6 +7,7 @@ import 'package:shopping_app/services/database.dart';
 
 import '../widgets/app_widgets.dart';
 
+// ignore: must_be_immutable
 class CategoryProducts extends StatefulWidget {
   CategoryProducts({required this.category, super.key});
   String category;
@@ -77,6 +78,7 @@ class _CategoryProductsState extends State<CategoryProducts> {
                           Row(
                             children: [
                               Text(
+                                // ignore: prefer_interpolation_to_compose_strings
                                 "\u20B9" + ds["Product Price"],
                                 style: const TextStyle(
                                   color: Color(0xFFfd6f3e),

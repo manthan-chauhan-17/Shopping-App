@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping_app/screens/bottomnav.dart';
@@ -14,8 +16,8 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   String email = "", password = "";
 
-  TextEditingController emailController = new TextEditingController();
-  TextEditingController passwordController = new TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -126,6 +128,7 @@ class _LoginState extends State<Login> {
                       }
                       return null;
                     },
+                    obscureText: true,
                     controller: passwordController,
                     decoration: const InputDecoration(
                       border: InputBorder.none,

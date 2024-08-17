@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:shopping_app/services/database.dart';
 import 'package:shopping_app/widgets/app_widgets.dart';
 
+// ignore: must_be_immutable
 class Order extends StatefulWidget {
   Order({super.key, required this.category});
   String category;
@@ -67,6 +67,7 @@ class _OrderState extends State<Order> {
                                     style: AppWidgets.semiBoldTextStyle(),
                                   ),
                                   Text(
+                                    // ignore: prefer_interpolation_to_compose_strings
                                     "\u20B9" + ds["Product Price"],
                                     style: const TextStyle(
                                       color: Color(0xFFfd6f3e),
