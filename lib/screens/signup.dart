@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:random_string/random_string.dart';
 import 'package:shopping_app/screens/bottomnav.dart';
-import 'package:shopping_app/screens/login.dart';
+import 'package:shopping_app/screens/admin_or_user.dart';
 import 'package:shopping_app/services/database.dart';
 import 'package:shopping_app/services/shared_pref.dart';
 import 'package:shopping_app/widgets/app_widgets.dart';
@@ -247,7 +247,7 @@ class _SignupState extends State<Signup> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const Login()),
+                              builder: (context) => const AdminOrUser()),
                         );
                       },
                       child: const Text(
