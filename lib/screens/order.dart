@@ -6,18 +6,17 @@ import 'package:shopping_app/services/database.dart';
 import 'package:shopping_app/widgets/app_widgets.dart';
 
 // ignore: must_be_immutable
-class Order extends StatefulWidget {
-  Order({super.key, required this.category});
-  String category;
+class OrderScreen extends StatefulWidget {
+  const OrderScreen({super.key});
   @override
-  State<Order> createState() => _OrderState();
+  State<OrderScreen> createState() => _OrderState();
 }
 
-class _OrderState extends State<Order> {
+class _OrderState extends State<OrderScreen> {
   Stream? orderStream;
 
   getOnTheLoad() async {
-    orderStream = await DatabaseMethods().getProducts(widget.category);
+    orderStream = await DatabaseMethods().getOrderedProducts();
     setState(() {});
   }
 
@@ -29,19 +28,21 @@ class _OrderState extends State<Order> {
 
   Widget allOrders() {
     return StreamBuilder(
-        stream: orderStream,
-        builder: (context, AsyncSnapshot snapshot) {
-          return snapshot.hasData
-              ? ListView.builder(
-                  padding: EdgeInsets.zero,
-                  itemCount: snapshot.data.docs.length,
-                  itemBuilder: (context, index) {
-                    DocumentSnapshot ds = snapshot.data.docs[index];
+      stream: orderStream,
+      builder: (context, AsyncSnapshot snapshot) {
+        return snapshot.hasData
+            ? ListView.builder(
+                padding: EdgeInsets.zero,
+                itemCount: snapshot.data.docs.length,
+                itemBuilder: (context, index) {
+                  DocumentSnapshot ds = snapshot.data.docs[index];
 
-                    return Material(
-                      elevation: 3.0,
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: Container(
+                  return Column(
+                    children: [
+                      Material(
+                        elevation: 3.0,
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: Container(
                           padding: const EdgeInsets.only(
                               left: 20.0, top: 10.0, bottom: 10.0),
                           width: MediaQuery.of(context).size.width,
@@ -76,14 +77,21 @@ class _OrderState extends State<Order> {
                                     ),
                                   ),
                                 ],
-                              )
+                              ),
                             ],
-                          )),
-                    );
-                  },
-                )
-              : Container();
-        });
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                    ],
+                  );
+                },
+              )
+            : Container();
+      },
+    );
   }
 
   @override

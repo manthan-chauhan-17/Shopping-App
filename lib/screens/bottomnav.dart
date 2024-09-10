@@ -15,16 +15,14 @@ class _BottomNavState extends State<BottomNav> {
   late List<Widget> pages;
 
   late Home homePage;
-  late Order order;
+  late OrderScreen order;
   late Profile profile;
   int currentTabIndex = 0;
 
   @override
   void initState() {
     homePage = const Home();
-    order = Order(
-      category: "Watch",
-    );
+    order = const OrderScreen();
     profile = const Profile();
 
     pages = [homePage, order, profile];

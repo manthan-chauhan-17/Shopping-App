@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:shopping_app/screens/order.dart';
+import 'package:shopping_app/services/database.dart';
 import 'package:shopping_app/widgets/app_widgets.dart';
 
 // ignore: must_be_immutable
@@ -18,6 +21,51 @@ class ProductDetail extends StatefulWidget {
 }
 
 class _ProductDetailState extends State<ProductDetail> {
+  addOrder() async {
+    Map<String, dynamic> addProductForOrder = {
+      "Product Name": widget.name,
+      "Product Image": widget.image,
+      "Product Price": widget.price,
+      "Product Detail": widget.detail,
+    };
+
+    QuerySnapshot existingOrder = await FirebaseFirestore.instance
+        .collection("Orders")
+        .where("Product Name", isEqualTo: widget.name)
+        .where("Product Price", isEqualTo: widget.price)
+        .get();
+
+    if (existingOrder.docs.isEmpty) {
+      await DatabaseMethods().addOrder(addProductForOrder).then(
+            (value) => {
+              ScaffoldMessenger.of(context).clearSnackBars(),
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  backgroundColor: Colors.redAccent,
+                  content: Text(
+                    "Order added successfully",
+                    style: TextStyle(fontSize: 20.0),
+                  ),
+                ),
+              ),
+              // ignore: use_build_context_synchronously
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const OrderScreen()))
+            },
+          );
+    } else {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.yellow,
+          content: Text(
+            "Order already exists",
+          ),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,21 +151,26 @@ class _ProductDetailState extends State<ProductDetail> {
                       height: 30.0,
                     ),
                     // Buy Now Button
-                    Container(
-                      padding: const EdgeInsets.symmetric(vertical: 10.0),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFfd6f3e),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      width: MediaQuery.of(context).size.width,
-                      child: const Text(
-                        "Buy now",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22.0,
-                          fontWeight: FontWeight.bold,
+                    GestureDetector(
+                      onTap: () {
+                        addOrder();
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFfd6f3e),
+                          borderRadius: BorderRadius.circular(10.0),
                         ),
-                        textAlign: TextAlign.center,
+                        width: MediaQuery.of(context).size.width,
+                        child: const Text(
+                          "Buy now",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     )
                   ],
